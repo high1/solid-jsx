@@ -73,11 +73,6 @@
     "solid-js": "^1.2.6",
     "typescript": "^4.5.4"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.{js,ts}": "eslint --fix",
     "*.{js,css,json,md,jsx,yml,yaml}": "prettier --ignore-path .gitignore --write"
