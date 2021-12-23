@@ -1,0 +1,85 @@
+{
+  "name": "solid-jsx",
+  "version": "0.2.2",
+  "description": "",
+  "source": "src/jsx-runtime.tsx",
+  "main": "./dist/cjs/jsx.js",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "require": "./dist/cjs/jsx.js",
+      "default": "./dist/esm/jsx.js"
+    },
+    "./jsx-runtime": {
+      "require": "./dist/cjs/jsx.js",
+      "default": "./dist/esm/jsx.js"
+    },
+    "./jsx-dev-runtime": {
+      "require": "./dist/cjs/jsx.js",
+      "default": "./dist/esm/jsx.js"
+    }
+  },
+  "module": "./dist/esm/jsx.js",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "types": "./dist/types/jsx-runtime.d.ts",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "prepare": "husky install",
+    "build": "rollup -c && echo '{\"type\":\"module\"}' > dist/esm/package.json && tsc --emitDeclarationOnly",
+    "prepublishOnly": "pnpm build"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/high1/solid-jsx.git"
+  },
+  "keywords": [
+    "solid",
+    "mdx"
+  ],
+  "author": "high1 <high1@mailfence.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/high1/solid-jsx/issues"
+  },
+  "homepage": "https://github.com/high1/solid-jsx#readme",
+  "devDependencies": {
+    "@babel/core": "^7.10.3",
+    "@babel/preset-typescript": "^7.16.5",
+    "@rollup/plugin-babel": "^5.0.4",
+    "@typescript-eslint/eslint-plugin": "^5.8.0",
+    "@typescript-eslint/parser": "^5.8.0",
+    "babel-preset-solid": "^1.2.6",
+    "eslint": "^8.5.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-typescript": "^2.5.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jest": "^25.3.0",
+    "eslint-plugin-jest-dom": "^3.9.2",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-unicorn": "^39.0.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.3",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.61.1",
+    "rollup-plugin-node-externals": "^3.1.2",
+    "solid-js": "^1.2.6",
+    "typescript": "^4.5.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts}": "eslint --fix",
+    "*.{js,css,json,md,jsx,yml,yaml}": "prettier --ignore-path .gitignore --write"
+  }
+}

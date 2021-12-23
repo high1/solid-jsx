@@ -1,0 +1,25 @@
+Script started on 2021-12-23 21:14:24+01:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="198" LINES="11"]
+]0;radomir@wetcat:~/Projects/solid-jsx[?2004h[38;5;250m[48;5;240m radomir [48;5;238m[38;5;240m[0m[38;5;250m[48;5;238m wetcat [48;5;31m[38;5;238m[0m[38;5;15m[48;5;31m ~ [48;5;237m[38;5;31m[0m[38;5;250m[48;5;237m Projects [48;5;237m[38;5;244m[0m[38;5;254m[48;5;237m solid-jsx [48;5;161m[38;5;237m[0m[38;5;15m[48;5;161m  main [48;5;130m[38;5;161m[0m[38;5;15m[48;5;130m 21✎ [48;5;52m[38;5;130m[0m[38;5;15m[48;5;52m 6+ [48;5;236m[38;5;52m[0m[38;5;15m[48;5;236m $ [0m[38;5;236m[0m exitssh pi@pi2.holeexit[K[K[K[K[Kpnpm i
+[?2004lLockfile is up-to-date, resolution step is skipped
+Already up-to-date
+
+> solid-jsx@0.2.2 prepare /home/radomir/Projects/solid-jsx
+> husky install
+
+husky - Git hooks installed
+]0;radomir@wetcat:~/Projects/solid-jsx[?2004h[38;5;250m[48;5;240m radomir [48;5;238m[38;5;240m[0m[38;5;250m[48;5;238m wetcat [48;5;31m[38;5;238m[0m[38;5;15m[48;5;31m ~ [48;5;237m[38;5;31m[0m[38;5;250m[48;5;237m Projects [48;5;237m[38;5;244m[0m[38;5;254m[48;5;237m solid-jsx [48;5;161m[38;5;237m[0m[38;5;15m[48;5;161m  main [48;5;130m[38;5;161m[0m[38;5;15m[48;5;130m 21✎ [48;5;52m[38;5;130m[0m[38;5;15m[48;5;52m 6+ [48;5;236m[38;5;52m[0m[38;5;15m[48;5;236m $ [0m[38;5;236m[0m pnpm husky add .husky/pre-commit [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K"lint-staged"
+[?2004lhusky - created lint-staged
+]0;radomir@wetcat:~/Projects/solid-jsx[?2004h[38;5;250m[48;5;240m radomir [48;5;238m[38;5;240m[0m[38;5;250m[48;5;238m wetcat [48;5;31m[38;5;238m[0m[38;5;15m[48;5;31m ~ [48;5;237m[38;5;31m[0m[38;5;250m[48;5;237m Projects [48;5;237m[38;5;244m[0m[38;5;254m[48;5;237m solid-jsx [48;5;161m[38;5;237m[0m[38;5;15m[48;5;161m  main [48;5;130m[38;5;161m[0m[38;5;15m[48;5;130m 21✎ [48;5;52m[38;5;130m[0m[38;5;15m[48;5;52m 7+ [48;5;236m[38;5;52m[0m[38;5;15m[48;5;236m $ [0m[38;5;236m[0m pnpm husky add "lint-staged"."lint-staged"[1P"lint-staged"."lint-staged"h"lint-staged"u"lint-staged"s"lint-staged"k"lint-staged"y"lint-staged"/"lint-staged"p"lint-staged"r"lint-staged"e"lint-staged"-"lint-staged"c"lint-staged"o"lint-staged"m"lint-staged"m"lint-staged"i"lint-staged"t"lint-staged" "lint-staged"
+[?2004lhusky - created .husky/pre-commit
+]0;radomir@wetcat:~/Projects/solid-jsx[?2004h[38;5;250m[48;5;240m radomir [48;5;238m[38;5;240m[0m[38;5;250m[48;5;238m wetcat [48;5;31m[38;5;238m[0m[38;5;15m[48;5;31m ~ [48;5;237m[38;5;31m[0m[38;5;250m[48;5;237m Projects [48;5;237m[38;5;244m[0m[38;5;254m[48;5;237m solid-jsx [48;5;161m[38;5;237m[0m[38;5;15m[48;5;161m  main [48;5;130m[38;5;161m[0m[38;5;15m[48;5;130m 21✎ [48;5;52m[38;5;130m[0m[38;5;15m[48;5;52m 7+ [48;5;236m[38;5;52m[0m[38;5;15m[48;5;236m $ [0m[38;5;236m[0m git log
+[?2004l[?1h=[33mcommit 4c1c813c1f2866d02bc27b9f394ca2d9b7afa3aa[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m[m
+Author: Larry Botha <larry@fixate.it>[m
+Date:   Sun Feb 7 11:25:25 2021 -0500[m
+[m
+    docs(README): remove reference to onMyHandler => on:myhandler (#72)[m
+[m
+[33mcommit 30f91fbf48ca094d0e57e1eda9d8833f97b93159[m[m
+Author: Sascha Tandel <s.tandel@kenoxa.de>[m
+Date:   Sun Feb 7 12:12:08 2021 +0100[m
+[m
+:[K[K[?1l>]0;radomir@wetcat:~/Projects/solid-jsx[?2004h[38;5;250m[48;5;240m radomir [48;5;238m[38;5;240m[0m[38;5;250m[48;5;238m wetcat [48;5;31m[38;5;238m[0m

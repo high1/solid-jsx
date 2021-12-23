@@ -1,0 +1,113 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:unicorn/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "unicorn/filename-case": [
+      "error",
+      {
+        "cases": {
+          "camelCase": true,
+          "kebabCase": true
+        }
+      }
+    ]
+  },
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "ignorePatterns": [
+    "node_modules",
+    "coverage",
+    "dist",
+    "mockServiceWorker.js"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:jsx-a11y/recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript",
+        "plugin:unicorn/recommended",
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": [
+          "warn",
+          {
+            "allowExpressions": true
+          }
+        ],
+        "import/no-unresolved": [
+          "error",
+          {
+            "ignore": [
+              "^node:.*$"
+            ]
+          }
+        ],
+        "unicorn/filename-case": [
+          "error",
+          {
+            "cases": {
+              "pascalCase": true,
+              "kebabCase": true
+            }
+          }
+        ],
+        "unicorn/no-array-reduce": "off",
+        "unicorn/no-unreadable-array-destructuring": "off"
+      },
+      "parserOptions": {
+        "project": [
+          "./tsconfig.json"
+        ],
+        "sourceType": "module",
+        "ecmaFeatures": {
+          "impliedStrict": true,
+          "jsx": true
+        },
+        "ecmaVersion": 2020
+      },
+      "settings": {
+        "import/resolver": {
+          "node": {},
+          "typescript": {}
+        },
+        "import/core-modules": [
+          "virtual:windi.css",
+          "virtual:windi-devtools"
+        ]
+      },
+      "env": {
+        "es2020": true,
+        "browser": true,
+        "jest": true
+      }
+    }
+  ]
+}
