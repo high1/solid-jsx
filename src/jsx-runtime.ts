@@ -3,20 +3,23 @@ import { Dynamic } from 'solid-js/web';
 
 export const Fragment = (properties: PropsWithChildren): JSX.Element => properties.children;
 
+const getNewProperties = (
+  properties: Record<string, unknown> & { children?: JSX.Element }
+): PropsWithChildren => {
+  const newProperties: Record<string, unknown> = {};
+  for (const key of Object.keys(properties)) newProperties[jsxKeyToSolid(key)] = properties[key];
+  return newProperties;
+};
+
 export const jsx = (
   type: string | ((properties_: PropsWithChildren) => JSX.Element),
-  properties: Record<string, unknown> & { children: JSX.Element }
-): JSX.Element => {
-  const newProperties: Record<string, unknown> = {};
-
-  for (const key of Object.keys(properties)) newProperties[jsxKeyToSolid(key)] = properties[key];
-
-  return typeof type === 'function'
+  properties: PropsWithChildren
+): JSX.Element =>
+  typeof type === 'function'
     ? type.name === 'Fragment'
       ? properties.children
-      : type(newProperties)
-    : createComponent(Dynamic, mergeProps(newProperties, { component: type }));
-};
+      : type(getNewProperties(properties))
+    : createComponent(Dynamic, mergeProps(getNewProperties(properties), { component: type }));
 
 // For the moment we do not distinguish static children from dynamic ones
 export const jsxs = jsx;
@@ -34,6 +37,11 @@ const MAPPED_ATTRIBUTES = new Map([
   ['autoFocus', 'autofocus'],
   ['contentEditable', 'contenteditable'],
   ['noValidate', 'novalidate'],
+  ['isMap', 'ismap'],
+  ['playsInline', 'playsinline'],
+  ['allowFullScreen', 'allowfullscreen'],
+  ['formNoValidate', 'formnovalidate'],
+  ['noModule', 'nomodule'],
 ]);
 
 const jsxKeyToSolid = (key: string): string =>
