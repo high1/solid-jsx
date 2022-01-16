@@ -1,18 +1,12 @@
 import babel from '@rollup/plugin-babel';
-import externals from 'rollup-plugin-node-externals';
+import solid from 'babel-preset-solid';
+import typescript from '@babel/preset-typescript';
 import package_ from './package.json';
-
-const plugins = [
-  babel({
-    babelHelpers: 'bundled',
-    exclude: 'node_modules/**',
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
-  }),
-];
 
 export default [
   {
     input: package_.source,
+    external: ['solid-js', 'solid-js/web'],
     output: [
       {
         format: 'esm',
@@ -25,6 +19,13 @@ export default [
         sourcemap: true,
       },
     ],
-    plugins: [externals({ deps: true }), ...plugins],
+    plugins: [
+      babel({
+        babelHelpers: 'bundled',
+        exclude: 'node_modules/**',
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        presets: [solid, typescript],
+      }),
+    ],
   },
 ];
