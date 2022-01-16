@@ -1,29 +1,21 @@
-import {
-  Component,
-  createComponent,
-  createMemo,
-  JSX,
-  mergeProps,
-  PropsWithChildren,
-} from 'solid-js';
+import { createComponent, JSX, mergeProps, PropsWithChildren } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
-export const Fragment: Component = (properties: PropsWithChildren) =>
-  createMemo(() => properties.children);
+export const Fragment = (properties: PropsWithChildren): JSX.Element => properties.children;
 
 export const jsx = (
-  type: string | ((properties_: PropsWithChildren) => Component),
+  type: string | ((properties_: PropsWithChildren) => JSX.Element),
   properties: Record<string, unknown> & { children: JSX.Element }
-): Component => {
+): JSX.Element => {
   const newProperties: Record<string, unknown> = {};
 
   for (const key of Object.keys(properties)) newProperties[jsxKeyToSolid(key)] = properties[key];
 
   return typeof type === 'function'
     ? type.name === 'Fragment'
-      ? () => createComponent(Fragment, newProperties)
+      ? properties.children
       : type(newProperties)
-    : () => createComponent(Dynamic, mergeProps(newProperties, { component: type }));
+    : createComponent(Dynamic, mergeProps(newProperties, { component: type }));
 };
 
 // For the moment we do not distinguish static children from dynamic ones
