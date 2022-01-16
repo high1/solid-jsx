@@ -1,6 +1,6 @@
 {
   "name": "solid-jsx",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "",
   "source": "src/jsx-runtime.tsx",
   "main": "./dist/jsx-runtime.js",
