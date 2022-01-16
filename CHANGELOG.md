@@ -1,5 +1,14 @@
 # Changelog
 
+### 0.3.2
+
+- switched to ts from tsx for jsx-runtime
+- completely simplified the build pipeline, removed babel and used tsup
+
+### 0.3.1
+
+- code cleanup
+
 ### 0.3.0
 
 ### Features

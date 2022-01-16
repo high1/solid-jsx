@@ -1,22 +1,30 @@
-import { Component, JSX, PropsWithChildren } from 'solid-js';
+import {
+  Component,
+  createComponent,
+  createMemo,
+  JSX,
+  mergeProps,
+  PropsWithChildren,
+} from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
-export const Fragment: Component = (properties: PropsWithChildren) => <>{properties.children}</>;
+export const Fragment: Component = (properties: PropsWithChildren) =>
+  createMemo(() => properties.children);
 
-export function jsx(
+export const jsx = (
   type: string | ((properties_: PropsWithChildren) => Component),
   properties: Record<string, unknown> & { children: JSX.Element }
-): Component {
+): Component => {
   const newProperties: Record<string, unknown> = {};
 
   for (const key of Object.keys(properties)) newProperties[jsxKeyToSolid(key)] = properties[key];
 
   return typeof type === 'function'
     ? type.name === 'Fragment'
-      ? () => <Fragment>{properties.children}</Fragment>
+      ? () => createComponent(Fragment, newProperties)
       : type(newProperties)
-    : () => <Dynamic component={type} {...newProperties} />;
-}
+    : () => createComponent(Dynamic, mergeProps(newProperties, { component: type }));
+};
 
 // For the moment we do not distinguish static children from dynamic ones
 export const jsxs = jsx;
@@ -36,9 +44,6 @@ const MAPPED_ATTRIBUTES = new Map([
   ['noValidate', 'novalidate'],
 ]);
 
-function jsxKeyToSolid(key: string): string {
-  return (
-    MAPPED_ATTRIBUTES.get(key) ||
-    key.replace(/^(xmlns|xlink)(.+)/, (_, p1: string, p2: string) => `${p1}:${p2.toLowerCase()}`)
-  );
-}
+const jsxKeyToSolid = (key: string): string =>
+  MAPPED_ATTRIBUTES.get(key) ||
+  key.replace(/^(xmlns|xlink)(.+)/, (_, p1: string, p2: string) => `${p1}:${p2.toLowerCase()}`);

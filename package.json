@@ -1,8 +1,8 @@
 {
   "name": "solid-jsx",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "",
-  "source": "src/jsx-runtime.tsx",
+  "source": "src/jsx-runtime.ts",
   "main": "./dist/jsx-runtime.js",
   "module": "./dist/jsx-runtime.mjs",
   "exports": {
@@ -28,7 +28,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "prepare": "husky install",
-    "build": "rollup -c && echo '{\"type\":\"module\"}' > dist/package.json && tsc --emitDeclarationOnly",
+    "build": "tsup src/jsx-runtime.ts --dts --format cjs,esm",
     "prepublishOnly": "pnpm build"
   },
   "engines": {
@@ -49,12 +49,8 @@
   },
   "homepage": "https://github.com/high1/solid-jsx#readme",
   "devDependencies": {
-    "@babel/core": "^7.16.7",
-    "@babel/preset-typescript": "^7.16.7",
-    "@rollup/plugin-babel": "^5.3.0",
     "@typescript-eslint/eslint-plugin": "^5.9.1",
     "@typescript-eslint/parser": "^5.9.1",
-    "babel-preset-solid": "^1.3.2",
     "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-import-resolver-typescript": "^2.5.0",
@@ -68,12 +64,14 @@
     "lint-staged": "^12.1.7",
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
-    "rollup": "^2.64.0",
-    "solid-js": "^1.3.3",
+    "tsup": "^5.11.11",
     "typescript": "^4.5.4"
   },
   "lint-staged": {
     "*.{js,ts}": "eslint --fix",
     "*.{js,css,json,md,jsx,yml,yaml}": "prettier --ignore-path .gitignore --write"
+  },
+  "dependencies": {
+    "solid-js": "^1.3.3"
   }
 }
