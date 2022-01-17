@@ -1,6 +1,6 @@
 {
   "name": "solid-jsx",
-  "version": "0.3.3",
+  "version": "0.3.5",
   "description": "",
   "source": "src/jsx-runtime.ts",
   "main": "./dist/jsx-runtime.js",
@@ -55,8 +55,6 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-jest": "^25.7.0",
-    "eslint-plugin-jest-dom": "^4.0.1",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-unicorn": "^40.1.0",
