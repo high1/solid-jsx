@@ -1,5 +1,12 @@
 import { createComponent, JSX, mergeProps, PropsWithChildren } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
+import {
+  CSS_PROPERTIES,
+  LOWERCASE_ATTRIBUTES,
+  MAPPED_ATTRIBUTES,
+  REPLACED_COMPAT,
+  SVG_ATTRIBUTES,
+} from 'elements';
 
 export const Fragment = (properties: PropsWithChildren): JSX.Element => properties.children;
 
@@ -11,6 +18,11 @@ const getProperties = (
     properties_[jsxKeyToSolid(key)] =
       typeof properties[key] === 'object' && !Array.isArray(properties[key])
         ? getProperties(properties[key] as Record<string, unknown>)
+        : typeof properties[key] === 'string'
+        ? (properties[key] as string).replace(
+            new RegExp([...REPLACED_COMPAT.keys()].join('|'), 'g'),
+            (match: string) => REPLACED_COMPAT.get(match) ?? match
+          )
         : properties[key];
   return properties_;
 };
@@ -23,7 +35,10 @@ export const jsx = (
     ? type.name === 'Fragment'
       ? Fragment(properties)
       : type(getProperties(properties))
-    : createComponent(Dynamic, mergeProps(getProperties(properties), { component: type }));
+    : createComponent(
+        Dynamic,
+        mergeProps(getProperties(properties), { component: REPLACED_COMPAT.get(type) ?? type })
+      );
 
 // For the moment we do not distinguish static children from dynamic ones
 export const jsxs = jsx;
@@ -32,50 +47,23 @@ export const jsxs = jsx;
 // function jsxDEV(type, props , maybeKey, isStaticChildren, source, self)
 export const jsxDEV = jsx;
 
-// Attributes that need to be renamed
-const MAPPED_ATTRIBUTES = new Map<string, string>([
-  ['className', 'class'],
-  ['htmlFor', 'for'],
-  ['glyphName', 'glyph-name'],
-  ['glyphOrientationHorizontal', 'glyph-orientation-horizontal'],
-  ['glyphOrientationVertical', 'glyph-orientation-vertical'],
-  // ['horizAdvX', 'horiz-adv-x'],
-  // ['horizOriginX', 'horiz-origin-x'],
-  ['markerEnd', 'marker-end'],
-  ['markerMid', 'marker-mid'],
-  ['markerStart', 'marker-start'],
-  ['textAnchor', 'text-anchor'],
-  ['textDecoration', 'text-decoration'],
-  ['textRendering', 'text-rendering'],
-]);
-
-// Attributes that need to be converted to lowercase
-const LOWERCASE_ATTRIBUTES = new Map<string, string>(
-  [
-    'autoComplete',
-    'autoFocus',
-    'allowFullScreen',
-    'contentEditable',
-    'formNoValidate',
-    'isMap',
-    'noModule',
-    'noValidate',
-    'playsInline',
-    'readOnly',
-    'tabIndex',
-  ].map((attribute) => [attribute, attribute.toLowerCase()])
-);
-
 const jsxKeyToSolid = (key: string): string =>
   MAPPED_ATTRIBUTES.get(key) ??
   LOWERCASE_ATTRIBUTES.get(key) ??
   key
     .replace(
-      /^(xmlns|xlink|xml)([A-Z][a-z]+)/,
+      /^(xml(?:ns)?|xlink)([A-Z][a-z]+)/,
       (_, p1: string, p2: string) => `${p1}:${p2.toLowerCase()}`
     )
     .replace(
-      /^(accent|arabic|baseline|cap|clip|color|dominant|enable|fill|flood|font|image|letter|lightning|overline|paint|pointer|rendering|shape|stop|strikethrough|stroke|transform|underline|unicode|v|vector|vert|vertical|word|writing|x|)([A-Z][a-z]+?)([A-Z][a-z]+?)?/,
-      (_, p1: string, p2: string, p3: string | undefined) =>
-        `${p1}-${p2.toLowerCase()}${p3 ? `-${p3}` : ''}`
+      new RegExp(
+        `^(${[...CSS_PROPERTIES, ...SVG_ATTRIBUTES].join(
+          '|'
+        )})([A-Z][a-z]+)([A-Z][a-z]+)?([A-Z][a-z]+)?`
+      ),
+      (_, p1: string, p2: string, p3?: string, p4?: string) =>
+        [p1, p2, p3, p4]
+          .filter(Boolean)
+          .map((value) => value?.toLowerCase())
+          .join('-')
     );

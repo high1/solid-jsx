@@ -1,5 +1,14 @@
 # Changelog
 
+### 0.5.0
+
+- added compatibility replacement logic for elements that use Web component syntax, opt-in
+- updated build process, removed rollup, and switched to tsup
+
+### 0.4.0
+
+- added replacement logic for camel cased properties
+
 ### 0.3.2
 
 - switched to ts from tsx for jsx-runtime
