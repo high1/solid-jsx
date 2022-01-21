@@ -13,26 +13,28 @@ export const MAPPED_ATTRIBUTES = new Map<string, string>([
   ['textRendering', 'text-rendering'],
 ]);
 
-const REPLACED_COMPAT_SET = new Set(['mjx-container']);
+// Components replaced because of solid handling of web components
+const REPLACED_COMPAT_SET = new Set(['mjx-container', 'mjx-tool', 'mjx-tip', 'mjx-status']);
 export const REPLACED_COMPAT = new Map<string, string>(
   [...REPLACED_COMPAT_SET].map((key) => [key, key.replace(/-/g, '_')])
 );
 
 // Attributes that need to be converted to lowercase
+const LOWERCASE_ATTRIBUTES_SET = new Set([
+  'autoComplete',
+  'autoFocus',
+  'allowFullScreen',
+  'contentEditable',
+  'formNoValidate',
+  'isMap',
+  'noModule',
+  'noValidate',
+  'playsInline',
+  'readOnly',
+  'tabIndex',
+]);
 export const LOWERCASE_ATTRIBUTES = new Map<string, string>(
-  [
-    'autoComplete',
-    'autoFocus',
-    'allowFullScreen',
-    'contentEditable',
-    'formNoValidate',
-    'isMap',
-    'noModule',
-    'noValidate',
-    'playsInline',
-    'readOnly',
-    'tabIndex',
-  ].map((attribute) => [attribute, attribute.toLowerCase()])
+  [...LOWERCASE_ATTRIBUTES_SET].map((attribute) => [attribute, attribute.toLowerCase()])
 );
 
 export const CSS_PROPERTIES = new Set([

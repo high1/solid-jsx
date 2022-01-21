@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.5.1
+
+- added more components to compatibility replacement set (mathjax)
+
 ### 0.5.0
 
 - added compatibility replacement logic for elements that use Web component syntax, opt-in

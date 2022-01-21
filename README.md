@@ -2,70 +2,135 @@
 
 ## What?
 
-Use Solid components with [mdx](https://mdxjs.com/).
+Use Solid components with [mdx](https://mdxjs.com/) or [xdm](http://wooorm.com/xdm/).
+
+This module is ESM only, due to [mdx](https://mdxjs.com/) or [xdm](http://wooorm.com/xdm/) being ESM only.
+
+Adding
+
+```json
+"type": "module"
+```
+
+in package.json is one option.
 
 ## Installation
 
 ```sh
 pnpm install --save-dev solid-jsx
 ```
+
 ## Usage
 
-> This library is meant to be used alongside [@mdx-js](https://mdxjs.com/), version 2, by setting the jsxImportSource to __'solid-jsx'__.  
-You can use official integration with various bundlers, and frameworks, below is a configuration sample  
+This library can be used alongside version 2 of [@mdx-js](https://mdxjs.com/), or [xdm](http://wooorm.com/xdm/) by setting the jsxImportSource property to **'solid-jsx'**.
+
+```js
+pnpm i -D @mdx-js/rollup@next
+```
+
+or
+
+```js
+pnpm i -D xdm
+```
+
+You can use their official integration with various bundlers, and frameworks, below is a configuration sample  
 for [Vite](https://vitejs.dev), which supports rollup plugins.
 
 ```js
-import { defineConfig } from "vite";
-import solid from "vite-plugin-solid";
+import { defineConfig } from 'vite';
+import solid from 'vite-plugin-solid';
 import mdx from '@mdx-js/rollup';
 import remarkGfm from 'remark-gfm';
 
 export default defineConfig({
-
-  plugins: [mdx({ jsxImportSource: 'solid-jsx', remarkPlugins: [remarkGfm]}), solid()],
+  plugins: [mdx({ jsxImportSource: 'solid-jsx', remarkPlugins: [remarkGfm] }), solid()],
   build: {
-    target: "esnext",
+    target: 'esnext',
   },
 });
 ```
-More information -> [Integrations](https://mdxjs.com/docs/getting-started/#integrations).
 
-> All markdown tags and custom components replacement should be supported.
+Draw math with [xdm](http://wooorm.com/xdm/) and [mathjax](https://www.mathjax.org/)
 
 ```js
+import solid from 'vite-plugin-solid';
+import xdm from 'xdm/rollup.js';
+import remarkMath from 'remark-math';
+import uno from 'unocss/vite';
+import remarkMath from 'remark-math';
+import rehypeMathJaxSVG from 'rehype-mathjax/svg.js';
+
+export default defineConfig({
+  plugins: [
+    xdm({
+      jsxImportSource: 'solid-jsx',
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [rehypeMathJaxSVG],
+    }),
+    solid(),
+    uno(),
+  ],
+});
+```
+
+More information -> [Integrations](https://mdxjs.com/docs/getting-started/#integrations).
+
+All markdown tags and custom components replacement are supported.
+
+However, since the code goes through the @mdx-js/xdm compiler and not through the solid-js compiler,
+inline components will not be reactive.
+
+```jsx
+export const Counter = () => {
+  const [count, setCount] = createSignal(0);
+  return (
+    <>
+      <button onClick={() => setCount(count() + 1)}>Increment</button>
+      <p>{count}</p>
+  )
+}
+<Counter />
+```
+
+This limitation is minor, since writing components inline is just one option,
+and by far the worst one of them all, with limited syntax and language support.
+
+You can always import directly TypeScript/JavaScript components inside .mdx
+
+```mdx
+import Counter from './Counter';
+
+<Counter />
+```
+
+or pass the component to markdown directly
+
+```mdx
+Hello <Counter>
+```
+
+```jsx
+import Message from './message.mdx';
+
+<Message components={{ Counter }} />;
+```
+
+To have dynamic tags, use solid-js Dynamic component.
+
+```jsx
 const options: Record<string, Component> = {
   red: RedThing,
   green: GreenThing,
-  blue: BlueThing
-}
-...
-<Message 
+  blue: BlueThing,
+};
+<Message
   components={{
     h2: 'h6',
     h1: () => <div>Test</div>,
     Planet: () => <Dynamic component={options[selected()]} />,
-}}>
-```
-
-> However, since the code goes through the @mdx-js compiler and then in the jsx function in solid-jsx,
-this will not be reactive:
-
-```js
-const [tag, setTag] = createSignal('p')
-<Message 
-  components={{
-    h2: tag(),
-}}>
-```
-You can use Dynamic tag here:
-
-```js
-const [tag, setTag] = createSignal('p')
-<Message 
-  components={{
-    h2: (props: PropsWithChildren) => <Dynamic component={tag()} {...props} />,
-}}>
+  }}
+/>;
 ```
 
 ## Support

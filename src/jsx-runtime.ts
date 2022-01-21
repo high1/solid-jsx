@@ -10,6 +10,14 @@ import {
 
 export const Fragment = (properties: PropsWithChildren): JSX.Element => properties.children;
 
+const compatRegExp = new RegExp([...REPLACED_COMPAT.keys()].join('|'), 'g');
+
+const svgRegExp = /^(xml(?:ns)?|xlink)([A-Z][a-z]+)/;
+
+const cssSvgRegExp = new RegExp(
+  `^(${[...CSS_PROPERTIES, ...SVG_ATTRIBUTES].join('|')})([A-Z][a-z]+)([A-Z][a-z]+)?([A-Z][a-z]+)?`
+);
+
 const getProperties = (
   properties: Record<string, unknown> & { children?: JSX.Element }
 ): PropsWithChildren => {
@@ -20,7 +28,7 @@ const getProperties = (
         ? getProperties(properties[key] as Record<string, unknown>)
         : typeof properties[key] === 'string'
         ? (properties[key] as string).replace(
-            new RegExp([...REPLACED_COMPAT.keys()].join('|'), 'g'),
+            compatRegExp,
             (match: string) => REPLACED_COMPAT.get(match) ?? match
           )
         : properties[key];
@@ -51,19 +59,10 @@ const jsxKeyToSolid = (key: string): string =>
   MAPPED_ATTRIBUTES.get(key) ??
   LOWERCASE_ATTRIBUTES.get(key) ??
   key
-    .replace(
-      /^(xml(?:ns)?|xlink)([A-Z][a-z]+)/,
-      (_, p1: string, p2: string) => `${p1}:${p2.toLowerCase()}`
-    )
-    .replace(
-      new RegExp(
-        `^(${[...CSS_PROPERTIES, ...SVG_ATTRIBUTES].join(
-          '|'
-        )})([A-Z][a-z]+)([A-Z][a-z]+)?([A-Z][a-z]+)?`
-      ),
-      (_, p1: string, p2: string, p3?: string, p4?: string) =>
-        [p1, p2, p3, p4]
-          .filter(Boolean)
-          .map((value) => value?.toLowerCase())
-          .join('-')
+    .replace(svgRegExp, (_, p1: string, p2: string) => `${p1}:${p2.toLowerCase()}`)
+    .replace(cssSvgRegExp, (_, p1: string, p2: string, p3?: string, p4?: string) =>
+      [p1, p2, p3, p4]
+        .filter(Boolean)
+        .map((value) => value?.toLowerCase())
+        .join('-')
     );

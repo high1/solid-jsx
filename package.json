@@ -1,33 +1,25 @@
 {
   "name": "solid-jsx",
-  "version": "0.5.0",
-  "description": "",
-  "source": "src/jsx-runtime.ts",
+  "version": "0.5.1",
+  "description": "solid-js jsx compatible mdx runtime",
   "main": "./dist/jsx-runtime.js",
-  "module": "./dist/jsx-runtime.mjs",
+  "type": "module",
   "exports": {
-    ".": {
-      "import": "./dist/jsx-runtime.mjs",
-      "require": "./dist/jsx-runtime.js"
-    },
-    "./jsx-runtime": {
-      "import": "./dist/jsx-runtime.mjs",
-      "require": "./dist/jsx-runtime.js"
-    },
-    "./jsx-dev-runtime": {
-      "import": "./dist/jsx-runtime.mjs",
-      "require": "./dist/jsx-runtime.js"
-    }
+    ".": "./dist/jsx-runtime.js",
+    "./jsx-runtime": "./dist/jsx-runtime.js",
+    "./jsx-dev-runtime": "./dist/jsx-runtime.js"
   },
-  "sideEffects": false,
+  "types": "./dist/jsx-runtime.d.ts",
   "files": [
     "dist"
   ],
-  "types": "./dist/jsx-runtime.d.ts",
+  "sideEffects": false,
   "scripts": {
     "prebuild": "rimraf dist",
     "prepare": "husky install",
-    "build": "tsup src/jsx-runtime.ts --dts --format cjs,esm",
+    "build": "pnpm prebuild && pnpm lint && pnpm pretty && tsup src/jsx-runtime.ts --dts --format esm  --sourcemap --minify",
+    "lint": "pnpm eslint --fix ./src",
+    "pretty": "prettier --ignore-path .gitignore --write ./src",
     "prepublishOnly": "pnpm build"
   },
   "engines": {
@@ -57,11 +49,11 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-unicorn": "^40.1.0",
     "husky": "^7.0.4",
-    "lint-staged": "^12.2.1",
+    "lint-staged": "^12.2.2",
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
     "tsup": "^5.11.11",
-    "typescript": "^4.5.4"
+    "typescript": "^4.5.5"
   },
   "lint-staged": {
     "*.{js,ts}": "eslint --fix",
