@@ -1,22 +1,13 @@
 import { createComponent, JSX, mergeProps, PropsWithChildren } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
-import {
-  CSS_PROPERTIES,
-  LOWERCASE_ATTRIBUTES,
-  MAPPED_ATTRIBUTES,
-  REPLACED_COMPAT,
-  SVG_ATTRIBUTES,
-} from 'elements';
-
-export const Fragment = (properties: PropsWithChildren): JSX.Element => properties.children;
+import { LOWERCASE_ATTRIBUTES, REPLACED_COMPAT, ATTRIBUTES_PROPERTIES_MAP } from 'elements';
+import { isFirstLetterCapital } from 'utilities';
 
 const compatRegExp = new RegExp([...REPLACED_COMPAT.keys()].join('|'), 'g');
 
-const svgRegExp = /^(xml(?:ns)?|xlink)([A-Z][a-z]+)/;
+const svgXmlnsRegExp = /^(xmlns)([A-Z][a-z]+)/;
 
-const cssSvgRegExp = new RegExp(
-  `^(${[...CSS_PROPERTIES, ...SVG_ATTRIBUTES].join('|')})([A-Z][a-z]+)([A-Z][a-z]+)?([A-Z][a-z]+)?`
-);
+const webComponentRegExp = /^[a-z]+(?:-[a-z]+)+$/;
 
 const getProperties = (
   properties: Record<string, unknown> & { children?: JSX.Element }
@@ -35,6 +26,8 @@ const getProperties = (
   return properties_;
 };
 
+export const Fragment = (properties: PropsWithChildren): JSX.Element => properties.children;
+
 export const jsx = (
   type: string | ((properties_: PropsWithChildren) => JSX.Element),
   properties: PropsWithChildren
@@ -45,7 +38,9 @@ export const jsx = (
       : type(getProperties(properties))
     : createComponent(
         Dynamic,
-        mergeProps(getProperties(properties), { component: REPLACED_COMPAT.get(type) ?? type })
+        mergeProps(isFirstLetterCapital(type) ? properties : getProperties(properties), {
+          component: webComponentRegExp.test(type) ? REPLACED_COMPAT.get(type) ?? type : type,
+        })
       );
 
 // For the moment we do not distinguish static children from dynamic ones
@@ -56,13 +51,6 @@ export const jsxs = jsx;
 export const jsxDEV = jsx;
 
 const jsxKeyToSolid = (key: string): string =>
-  MAPPED_ATTRIBUTES.get(key) ??
+  ATTRIBUTES_PROPERTIES_MAP.get(key) ??
   LOWERCASE_ATTRIBUTES.get(key) ??
-  key
-    .replace(svgRegExp, (_, p1: string, p2: string) => `${p1}:${p2.toLowerCase()}`)
-    .replace(cssSvgRegExp, (_, p1: string, p2: string, p3?: string, p4?: string) =>
-      [p1, p2, p3, p4]
-        .filter(Boolean)
-        .map((value) => value?.toLowerCase())
-        .join('-')
-    );
+  key.replace(svgXmlnsRegExp, (_, p1: string, p2: string) => `${p1}:${p2.toLowerCase()}`);

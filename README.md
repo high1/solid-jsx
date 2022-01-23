@@ -2,9 +2,9 @@
 
 ## What?
 
-Use Solid components with [mdx](https://mdxjs.com/) or [xdm](http://wooorm.com/xdm/).
+Use [mdx](https://mdxjs.com/) or [xdm](http://wooorm.com/xdm/) with [solid-js](https://www.solidjs.com/).
 
-This module is ESM only, due to [mdx](https://mdxjs.com/) or [xdm](http://wooorm.com/xdm/) being ESM only.
+This module is ESM only, due to [mdx](https://mdxjs.com/) and [xdm](http://wooorm.com/xdm/) being ESM only.
 
 Adding
 
@@ -24,18 +24,8 @@ pnpm install --save-dev solid-jsx
 
 This library can be used alongside version 2 of [@mdx-js](https://mdxjs.com/), or [xdm](http://wooorm.com/xdm/) by setting the jsxImportSource property to **'solid-jsx'**.
 
-```js
-pnpm i -D @mdx-js/rollup@next
-```
-
-or
-
-```js
-pnpm i -D xdm
-```
-
-You can use their official integration with various bundlers, and frameworks, below is a configuration sample  
-for [Vite](https://vitejs.dev), which supports rollup plugins.
+You can use their official integration with various bundlers, and frameworks,
+below is an [@mdx-js](https://mdxjs.com/) configuration sample for [Vite](https://vitejs.dev), which supports rollup plugins.
 
 ```js
 import { defineConfig } from 'vite';

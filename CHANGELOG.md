@@ -1,5 +1,11 @@
 # Changelog
 
+### 0.6.0
+
+- moved from regx to list of valid attributes and properties replaced for SVG and CSS respectively
+- more validations before replacing
+- code organization and cleanup
+
 ### 0.5.1
 
 - added more components to compatibility replacement set (mathjax)

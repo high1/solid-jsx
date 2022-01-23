@@ -2671,10 +2671,10 @@ packages:
       glob: 7.2.0
     dev: true
 
-  /rollup/2.65.0:
+  /rollup/2.66.0:
     resolution:
       {
-        integrity: sha512-ohZVYrhtVMTqqeqH26sngfMiyGDg6gCUReOsoflXvYpzUkDHp8sVG8F9FQxjs72OfnLWpXP2nNNqQ9I0vkRovA==,
+        integrity: sha512-L6mKOkdyP8HK5kKJXaiWG7KZDumPJjuo1P+cfyHOJPNNTK3Moe7zCH5+fy7v8pVmHXtlxorzaBjvkBMB23s98g==,
       }
     engines: { node: '>=10.0.0' }
     hasBin: true
@@ -3108,7 +3108,7 @@ packages:
       joycon: 3.1.1
       postcss-load-config: 3.1.1
       resolve-from: 5.0.0
-      rollup: 2.65.0
+      rollup: 2.66.0
       source-map: 0.7.3
       sucrase: 3.20.3
       tree-kill: 1.2.2
