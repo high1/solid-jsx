@@ -13,10 +13,11 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    environment: github-actions
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
