@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.7.0
+
+- added MDX provider implementation
+
 ### 0.6.0
 
 - moved from regx to list of valid attributes and properties replaced for SVG and CSS respectively

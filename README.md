@@ -123,6 +123,30 @@ const options: Record<string, Component> = {
 />;
 ```
 
+When nesting MDX files, importing components at the top or repeating the same set of those as parameters can become cumbersome.  
+You can use MDXProvider to avoid this:
+
+```jsx
+import { MDXProvider } from 'solid-jsx';
+
+render(() => (
+  <MDXProvider components={{ Tweet }}>
+    <App />
+  <MDXProvider>
+  )
+);
+```
+
+The package also provides Typescript support, the types can be referenced as "solid-jsx/types". In tsconfig.json:
+
+```json
+{
+  "compilerOptions": {
+    "types": ["vite/client", "solid-jsx/types"]
+  }
+}
+```
+
 ## Support
 
 This project is free and open-source, so if you think this project can help you or

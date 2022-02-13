@@ -1,4 +1,11 @@
-import { createComponent, JSX, mergeProps, PropsWithChildren } from 'solid-js';
+import {
+  createComponent,
+  createContext,
+  JSX,
+  mergeProps,
+  PropsWithChildren,
+  useContext,
+} from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { LOWERCASE_ATTRIBUTES, REPLACED_COMPAT, ATTRIBUTES_PROPERTIES_MAP } from 'elements';
 import { isFirstLetterCapital } from 'utilities';
@@ -7,7 +14,27 @@ const compatRegExp = new RegExp([...REPLACED_COMPAT.keys()].join('|'), 'g');
 
 const svgXmlnsRegExp = /^(xmlns)([A-Z][a-z]+)/;
 
-const webComponentRegExp = /^[a-z]+(?:-[a-z]+)+$/;
+export const MDXContext = createContext({});
+
+export const MDXProvider = (
+  properties: PropsWithChildren<{
+    components: {
+      [k: string]: (properties_: PropsWithChildren) => JSX.Element;
+    };
+  }>
+): JSX.Element =>
+  createComponent(MDXContext.Provider, {
+    value: {
+      ...useContext(MDXContext),
+      ...properties.components,
+    },
+    children: () => properties.children,
+  });
+
+export const useMDXComponents = (): Record<
+  string,
+  (properties: PropsWithChildren) => JSX.Element
+> => useContext(MDXContext);
 
 const getProperties = (
   properties: Record<string, unknown> & { children?: JSX.Element }
@@ -39,7 +66,7 @@ export const jsx = (
     : createComponent(
         Dynamic,
         mergeProps(isFirstLetterCapital(type) ? properties : getProperties(properties), {
-          component: webComponentRegExp.test(type) ? REPLACED_COMPAT.get(type) ?? type : type,
+          component: REPLACED_COMPAT.get(type) ?? type,
         })
       );
 
