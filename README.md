@@ -97,7 +97,7 @@ import Counter from './Counter';
 or pass the component to markdown directly
 
 ```mdx
-Hello <Counter>
+Hello <Counter />
 ```
 
 ```jsx
