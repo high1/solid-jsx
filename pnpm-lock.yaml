@@ -13,7 +13,7 @@ specifiers:
   lint-staged: ^13.0.1
   prettier: ^2.6.2
   rimraf: ^3.0.2
-  solid-js: ^1.4.0
+  solid-js: ^1.4.4
   tsup: ^6.1.2
   typescript: ^4.7.3
 
@@ -3618,7 +3618,10 @@ packages:
     dev: true
 
   /wrappy/1.0.2:
-    resolution: { integrity: sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8= }
+    resolution:
+      {
+        integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==,
+      }
     dev: true
 
   /yallist/4.0.0:
