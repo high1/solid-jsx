@@ -78,6 +78,7 @@ export const Counter = () => {
     <>
       <button onClick={() => setCount(count() + 1)}>Increment</button>
       <p>{count}</p>
+    </>
   )
 }
 <Counter />
