@@ -25,7 +25,7 @@ export const useMDXComponents = (): Record<string, (properties: ParentProps) => 
 const REPLACED_COMPAT_SET = new Set(['mjx']);
 const compatRegExp = new RegExp(`(?:${[...REPLACED_COMPAT_SET].join('|')})-.+`, 'g');
 
-const expressionCache: Record<string, string> = {};
+const expressionCache = Object.create(null) as Record<string, string>;
 const replaceDashWithUnderscore = <T>(expression: T): string | T =>
   typeof expression === 'string'
     ? expressionCache[expression] ??
