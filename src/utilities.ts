@@ -10,7 +10,7 @@ export const capitalizeFirstLetter = (
 
 const attributeCamelCasedRegExp =
   /e(r[HRWrv]|[Vawy])|Con|l(e[Tcs]|c)|s(eP|y)|a(t[rt]|u|v)|Of|Ex|f[XYa]|gt|hR|d[Pg]|t[TXYd]|[UZq]/; //URL: https://regex101.com/r/I8Wm4S/1
-const attributesCache: Record<string, string> = {};
+const attributesCache = Object.create(null) as Record<string, string>;
 const uppercaseRe = /[A-Z]/g;
 
 export const normalizeKeySvg = (key: string): string =>
