@@ -3,16 +3,16 @@
  * An MDX file which exports a JSX component.
  */
 declare module '*.mdx' {
-  import { JSX, PropsWithChildren } from 'solid-js';
+  import { JSX, ParentProps } from 'solid-js';
 
   type MDXComponents = {
     [key in keyof JSX.IntrinsicElements | string]: key extends keyof JSX.IntrinsicElements
       ? ((properties: JSX.IntrinsicElements[key]) => JSX.Element) | keyof JSX.IntrinsicElements
-      : (properties: PropsWithChildren) => JSX.Element;
+      : (properties: ParentProps) => JSX.Element;
   };
 
   type CustomComponents = {
-    [key: string]: (properties: PropsWithChildren) => JSX.Element;
+    [key: string]: (properties: ParentProps) => JSX.Element;
   };
 
   interface MDXProperties {
