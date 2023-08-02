@@ -2,7 +2,7 @@ import { isServer } from 'solid-js/web';
 
 export const isFirstLetterCapital = (string: string): boolean => {
   const first = string.charAt(0);
-  return first === first.toLowerCase();
+  return first !== first.toLowerCase();
 };
 
 export const capitalizeFirstLetter = (
