@@ -6,14 +6,12 @@ declare module '*.mdx' {
   import { JSX, ParentProps } from 'solid-js';
 
   type MDXComponents = {
-    [key in keyof JSX.IntrinsicElements | string]: key extends keyof JSX.IntrinsicElements
+    [key in string]: key extends keyof JSX.IntrinsicElements
       ? ((properties: JSX.IntrinsicElements[key]) => JSX.Element) | keyof JSX.IntrinsicElements
       : (properties: ParentProps) => JSX.Element;
   };
 
-  type CustomComponents = {
-    [key: string]: (properties: ParentProps) => JSX.Element;
-  };
+  type CustomComponents = Record<string, (properties: ParentProps) => JSX.Element>;
 
   interface MDXProperties {
     components?: Partial<MDXComponents>;

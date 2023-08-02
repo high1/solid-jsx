@@ -1,15 +1,12 @@
 {
   "root": true,
+  "ignorePatterns": ["dist", "node_modules", "!**/.*", "pnpm-lock.yaml"],
   "env": {
     "browser": true,
     "es6": true,
     "node": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:unicorn/recommended",
-    "plugin:prettier/recommended"
-  ],
+  "extends": ["eslint:recommended", "plugin:unicorn/recommended", "plugin:prettier/recommended"],
   "rules": {
     "unicorn/filename-case": [
       "error",
@@ -32,24 +29,14 @@
     "ecmaVersion": 2020,
     "sourceType": "module"
   },
-  "ignorePatterns": [
-    "node_modules",
-    "coverage",
-    "dist",
-    "mockServiceWorker.js"
-  ],
   "overrides": [
     {
-      "files": [
-        "*.ts",
-        "*.tsx"
-      ],
+      "files": ["*.{ts,tsx}"],
       "extends": [
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking",
-        "plugin:import/errors",
-        "plugin:import/warnings",
+        "plugin:@typescript-eslint/recommended-type-checked",
+        "plugin:@typescript-eslint/stylistic-type-checked",
+        "plugin:import/recommended",
         "plugin:import/typescript",
         "plugin:unicorn/recommended",
         "plugin:prettier/recommended"
@@ -64,9 +51,7 @@
         "import/no-unresolved": [
           "error",
           {
-            "ignore": [
-              "^node:.*$"
-            ]
+            "ignore": ["^node:.*$"]
           }
         ],
         "unicorn/filename-case": [
@@ -82,31 +67,36 @@
         "unicorn/no-unreadable-array-destructuring": "off"
       },
       "parserOptions": {
-        "project": [
-          "./tsconfig.json"
-        ],
+        "project": true,
         "sourceType": "module",
         "ecmaFeatures": {
-          "impliedStrict": true,
           "jsx": true
         },
-        "ecmaVersion": 2020
+        "ecmaVersion": "latest"
       },
       "settings": {
         "import/resolver": {
-          "node": {},
           "typescript": {}
-        },
-        "import/core-modules": [
-          "virtual:windi.css",
-          "virtual:windi-devtools"
-        ]
-      },
-      "env": {
-        "es2020": true,
-        "browser": true,
-        "jest": true
+        }
       }
+    },
+    {
+      "files": ["*.json"],
+      "excludedFiles": ["{.eslintrc,tsconfig}.json"],
+      "extends": [
+        "plugin:jsonc/recommended-with-json",
+        "plugin:jsonc/prettier",
+        "plugin:prettier/recommended"
+      ]
+    },
+    {
+      // jsonc
+      "files": ["{.eslintrc,tsconfig}.json"],
+      "extends": [
+        "plugin:jsonc/recommended-with-jsonc",
+        "plugin:jsonc/prettier",
+        "plugin:prettier/recommended"
+      ]
     }
   ]
 }

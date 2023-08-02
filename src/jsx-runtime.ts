@@ -6,17 +6,15 @@ export const MDXContext = createContext({});
 
 export const MDXProvider = (
   properties: ParentProps<{
-    components: {
-      [k: string]: (properties_: ParentProps) => JSX.Element;
-    };
-  }>
+    components: Record<string, (properties_: ParentProps) => JSX.Element>;
+  }>,
 ): JSX.Element =>
   createComponent(MDXContext.Provider, {
     value: {
       ...useContext(MDXContext),
       ...properties.components,
     },
-    children: () => properties.children,
+    children: properties.children,
   });
 
 export const useMDXComponents = (): Record<string, (properties: ParentProps) => JSX.Element> =>
@@ -29,14 +27,14 @@ const expressionCache = Object.create(null) as Record<string, string>;
 const replaceDashWithUnderscore = <T>(expression: T): string | T =>
   typeof expression === 'string'
     ? expressionCache[expression] ??
-      (expressionCache[expression] = expression.replace(compatRegExp, (match: string) =>
-        match.replace(/-/g, '_')
+      (expressionCache[expression] = expression.replaceAll(compatRegExp, (match: string) =>
+        match.replaceAll('-', '_'),
       ))
     : expression;
 
 const getProperties = (
   properties: Record<string, unknown> & { children?: JSX.Element },
-  type?: string
+  type?: string,
 ): ParentProps => {
   const properties_: Record<string, unknown> = {};
   for (const key of Object.keys(properties))
@@ -51,7 +49,7 @@ export const Fragment = (properties: ParentProps): JSX.Element => properties.chi
 
 export const jsx = (
   type: string | ((properties_: ParentProps) => JSX.Element),
-  properties: ParentProps
+  properties: ParentProps,
 ): JSX.Element =>
   typeof type === 'function'
     ? type.name === 'Fragment'
@@ -61,7 +59,7 @@ export const jsx = (
         Dynamic,
         mergeProps(isFirstLetterCapital(type) ? properties : getProperties(properties, type), {
           component: replaceDashWithUnderscore(type),
-        })
+        }),
       );
 
 const jsxKeyToSolid = (key: string, type = ''): string =>
