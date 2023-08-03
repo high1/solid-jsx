@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: github-actions
     env:
-      BRANCH: ${{ GITHUB_REF##*/ }}
+      BRANCH: ${{env.GITHUB_REF_NAME}}
 
     steps:
       - name: Checkout 🛎️
