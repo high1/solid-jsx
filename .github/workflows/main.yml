@@ -29,7 +29,8 @@ jobs:
         run: |
           pnpm i --frozen-lockfile
           pnpm build
-      - uses: JS-DevTools/npm-publish@v2.2.1
+      - name: Publish 📰
+        uses: JS-DevTools/npm-publish@v2.2.1
         if: ${{ steps.publish.outputs.type }} && ${GITHUB_REF##*/} == 'main'
         with:
           token: ${{ secrets.NPM_TOKEN }}
