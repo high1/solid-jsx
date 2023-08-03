@@ -13,6 +13,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment: github-actions
+    env:
+      BRANCH: ${GITHUB_REF##*/}
 
     steps:
       - name: Checkout 🛎️
@@ -25,13 +27,13 @@ jobs:
           node-version: latest
           cache: pnpm
       - name: Install & Build 🔧
-        if: ${GITHUB_REF##*/} != 'main'
+        if: env.BRANCH != 'main'
         run: |
           pnpm i --frozen-lockfile
           pnpm build
       - name: Publish 📰
         uses: JS-DevTools/npm-publish@v2.2.1
-        if: ${{ steps.publish.outputs.type }} && ${GITHUB_REF##*/} == 'main'
+        if: ${{ steps.publish.outputs.type }} && env.BRANCH == 'main'
         with:
           token: ${{ secrets.NPM_TOKEN }}
           strategy: upgrade
