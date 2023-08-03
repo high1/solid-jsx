@@ -1,6 +1,6 @@
 {
   "name": "solid-jsx",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "solid-js jsx compatible mdx runtime",
   "main": "./dist/jsx-runtime.js",
   "type": "module",
