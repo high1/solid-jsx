@@ -24,11 +24,11 @@ jobs:
         with:
           node-version: latest
           cache: pnpm
-      - name: Install & Build 🔧
+      - name: Install 🔩
+        run: pnpm i --frozen-lockfile
+      - name: Build 🔧
         if: github.ref != 'refs/heads/main'
-        run: |
-          pnpm i --frozen-lockfile
-          pnpm build
+        run: pnpm build
       - name: Publish 📰
         uses: JS-DevTools/npm-publish@v2.2.1
         if: github.ref == 'refs/heads/main'
