@@ -29,6 +29,7 @@ jobs:
       - name: Install & Build 🔧
         if: env.BRANCH != 'main'
         run: |
+          echo "$env.BRANCH"
           pnpm i --frozen-lockfile
           pnpm build
       - name: Publish 📰
