@@ -68,9 +68,10 @@
   "sideEffects": false,
   "scripts": {
     "prepare": "husky install",
-    "build": "pnpm lint && pnpm pretty && tsup",
-    "lint": "pnpm eslint --fix ./src",
-    "pretty": "prettier --ignore-path .gitignore --write ./src",
+    "prebuild": "pnpm format && pnpm lint",
+    "build": "tsup",
+    "lint": "pnpm eslint . --max-warnings 0",
+    "format": "prettier --ignore-path .gitignore --write .",
     "prepublishOnly": "pnpm build"
   },
   "engines": {
@@ -99,7 +100,7 @@
     "eslint-plugin-import": "2.28.0",
     "eslint-plugin-jsonc": "2.9.0",
     "eslint-plugin-prettier": "5.0.0",
-    "eslint-plugin-unicorn": "48.0.1",
+    "eslint-plugin-yml": "1.8.0",
     "husky": "8.0.3",
     "lint-staged": "13.2.3",
     "prettier": "3.0.1",
