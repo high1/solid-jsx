@@ -10,13 +10,13 @@ import {
 import { Dynamic } from 'solid-js/web';
 import { isFirstLetterCapital, isSVGElement, normalizeKeySvg } from 'utilities';
 
-export const MDXContext = createContext<Record<string, (properties_: unknown) => JSX.Element>>(
+export const MDXContext = createContext<Record<string, (properties_: never) => JSX.Element>>(
   Object.create(null) as Record<string, (properties_: unknown) => JSX.Element>,
 );
 
 export const MDXProvider = (
   properties: ParentProps<{
-    components: Record<string, (properties_: unknown) => JSX.Element>;
+    components: Record<string, (properties_: never) => JSX.Element>;
   }>,
 ): JSXElement => {
   const context = useContext(MDXContext);
@@ -34,8 +34,8 @@ export const MDXProvider = (
 };
 
 export const useMDXComponents = (
-  components: Record<string, (properties_: unknown) => JSX.Element>,
-): Record<string, (properties_: unknown) => JSX.Element> => {
+  components: Record<string, (properties_: never) => JSX.Element>,
+): Record<string, (properties_: never) => JSX.Element> => {
   const contextComponents = useContext(MDXContext);
   return { ...contextComponents, ...components };
 };
