@@ -1,24 +1,44 @@
-import { createComponent, createContext, JSX, mergeProps, ParentProps, useContext } from 'solid-js';
+import {
+  createComponent,
+  createContext,
+  JSX,
+  JSXElement,
+  mergeProps,
+  ParentProps,
+  useContext,
+} from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { isFirstLetterCapital, isSVGElement, normalizeKeySvg } from 'utilities';
 
-export const MDXContext = createContext({});
+export const MDXContext = createContext<Record<string, (properties_: unknown) => JSX.Element>>(
+  Object.create(null) as Record<string, (properties_: unknown) => JSX.Element>,
+);
 
 export const MDXProvider = (
   properties: ParentProps<{
-    components: Record<string, (properties_: ParentProps) => JSX.Element>;
+    components: Record<string, (properties_: unknown) => JSX.Element>;
   }>,
-): JSX.Element =>
-  createComponent(MDXContext.Provider, {
-    value: {
-      ...useContext(MDXContext),
-      ...properties.components,
+): JSXElement => {
+  const context = useContext(MDXContext);
+  return createComponent(MDXContext.Provider, {
+    get value() {
+      return {
+        ...context,
+        ...properties.components,
+      };
     },
-    children: properties.children,
+    get children() {
+      return properties.children;
+    },
   });
+};
 
-export const useMDXComponents = (): Record<string, (properties: ParentProps) => JSX.Element> =>
-  useContext(MDXContext);
+export const useMDXComponents = (
+  components: Record<string, (properties_: unknown) => JSX.Element>,
+): Record<string, (properties_: unknown) => JSX.Element> => {
+  const contextComponents = useContext(MDXContext);
+  return { ...contextComponents, ...components };
+};
 
 const REPLACED_COMPAT_SET = new Set(['mjx']);
 const compatRegExp = new RegExp(`(?:${[...REPLACED_COMPAT_SET].join('|')})-.+`, 'g');

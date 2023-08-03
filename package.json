@@ -1,10 +1,11 @@
 {
   "name": "solid-jsx",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "solid-js jsx compatible mdx runtime",
   "main": "./dist/jsx-runtime.js",
   "type": "module",
   "module": "./dist/jsx-runtime.js",
+  "types": "./dist/jsx-runtime.d.ts",
   "exports": {
     ".": {
       "worker": {
@@ -60,7 +61,6 @@
     "./jsx-runtime": "./dist/jsx-runtime.js",
     "./jsx-dev-runtime": "./dist/jsx-runtime.js"
   },
-  "types": "./dist/index/index.d.ts",
   "files": [
     "dist",
     "types.d.ts"
