@@ -31,7 +31,7 @@ jobs:
           pnpm build
       - name: Publish 📰
         uses: JS-DevTools/npm-publish@v2.2.1
-        if: ${{ steps.publish.outputs.type }} && github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main'
         with:
           token: ${{ secrets.NPM_TOKEN }}
           strategy: upgrade
