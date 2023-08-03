@@ -6,18 +6,7 @@
     "es6": true,
     "node": true
   },
-  "extends": ["eslint:recommended", "plugin:unicorn/recommended", "plugin:prettier/recommended"],
-  "rules": {
-    "unicorn/filename-case": [
-      "error",
-      {
-        "cases": {
-          "camelCase": true,
-          "kebabCase": true
-        }
-      }
-    ]
-  },
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -38,34 +27,8 @@
         "plugin:@typescript-eslint/stylistic-type-checked",
         "plugin:import/recommended",
         "plugin:import/typescript",
-        "plugin:unicorn/recommended",
         "plugin:prettier/recommended"
       ],
-      "rules": {
-        "@typescript-eslint/explicit-function-return-type": [
-          "warn",
-          {
-            "allowExpressions": true
-          }
-        ],
-        "import/no-unresolved": [
-          "error",
-          {
-            "ignore": ["^node:.*$"]
-          }
-        ],
-        "unicorn/filename-case": [
-          "error",
-          {
-            "cases": {
-              "pascalCase": true,
-              "kebabCase": true
-            }
-          }
-        ],
-        "unicorn/no-array-reduce": "off",
-        "unicorn/no-unreadable-array-destructuring": "off"
-      },
       "parserOptions": {
         "project": true,
         "sourceType": "module",
@@ -97,6 +60,10 @@
         "plugin:jsonc/prettier",
         "plugin:prettier/recommended"
       ]
+    },
+    {
+      "files": ["*.yml"],
+      "extends": ["plugin:yml/standard", "plugin:yml/prettier", "plugin:prettier/recommended"]
     }
   ]
 }

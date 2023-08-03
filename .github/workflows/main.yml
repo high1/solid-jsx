@@ -1,0 +1,39 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Build and Deploy 🕛
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: github-actions
+    env:
+      BRANCH: ${GITHUB_REF##*/}
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3.5.3
+      - name: Pnpm 🧱
+        uses: pnpm/action-setup@v2.4.0
+      - name: Node.js 🧰
+        uses: actions/setup-node@v3.7.0
+        with:
+          node-version: latest
+          cache: pnpm
+      - name: Install & Build 🔧
+        if: env.BRANCH != 'main'
+        run: |
+          pnpm i --frozen-lockfile
+          pnpm build
+      - name: Publish 📰
+        uses: JS-DevTools/npm-publish@v2.2.1
+        if: ${{ steps.publish.outputs.type }} && env.BRANCH == 'main'
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          strategy: upgrade
