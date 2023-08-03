@@ -11,7 +11,7 @@ import { Dynamic } from 'solid-js/web';
 import { isFirstLetterCapital, isSVGElement, normalizeKeySvg } from 'utilities';
 
 export const MDXContext = createContext<Record<string, (properties_: never) => JSX.Element>>(
-  Object.create(null) as Record<string, (properties_: unknown) => JSX.Element>,
+  Object.create(null) as Record<string, never>,
 );
 
 export const MDXProvider = (
