@@ -1,11 +1,11 @@
 import {
   createComponent,
   createContext,
-  JSX,
-  JSXElement,
   mergeProps,
-  ParentProps,
   useContext,
+  type JSX,
+  type JSXElement,
+  type ParentProps,
 } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { isFirstLetterCapital, isSVGElement, normalizeKeySvg } from 'utilities';
