@@ -107,7 +107,7 @@
     "rimraf": "5.0.5",
     "solid-js": "1.8.15",
     "tsup": "8.0.2",
-    "typescript": "5.3.3"
+    "typescript": "5.4.2"
   },
   "lint-staged": {
     "*.{js,ts}": "eslint --fix",
