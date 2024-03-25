@@ -29,7 +29,7 @@ jobs:
           pnpm i --frozen-lockfile
           pnpm build
       - name: Publish 📰
-        uses: JS-DevTools/npm-publish@v3.0.1
+        uses: JS-DevTools/npm-publish@v3.1.0
         if: github.ref_name == 'main'
         with:
           token: ${{ secrets.NPM_TOKEN }}
