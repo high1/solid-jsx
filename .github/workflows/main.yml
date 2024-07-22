@@ -18,7 +18,7 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v4.1.7
       - name: Pnpm 🧱
-        uses: pnpm/action-setup@v3.0.0
+        uses: pnpm/action-setup@v4.0.0
       - name: Node.js 🧰
         uses: actions/setup-node@v4.0.3
         with:
