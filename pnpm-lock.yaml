@@ -45,8 +45,8 @@ devDependencies:
     specifier: 5.0.10
     version: 5.0.10
   solid-js:
-    specifier: 1.8.19
-    version: 1.8.19
+    specifier: 1.8.20
+    version: 1.8.20
   tsup:
     specifier: 8.2.4
     version: 8.2.4(typescript@5.5.4)
@@ -2642,8 +2642,8 @@ packages:
       is-fullwidth-code-point: 5.0.0
     dev: true
 
-  /solid-js@1.8.19:
-    resolution: {integrity: sha512-h8z/TvTQYsf894LM9Iau/ZW2iAKrCzAWDwjPhMcXnonmW1OIIihc28wp82b1wwei1p81fH5+gnfNOe8RzLbDRQ==}
+  /solid-js@1.8.20:
+    resolution: {integrity: sha512-SsgaExCJ97mPm9WpAusjZ484Z8zTp8ggiueQOsrm81iAP7UaxaN+wiOgnPcJ9u6B2SQpoQ4FiDPAZBqVWi1V4g==}
     dependencies:
       csstype: 3.1.2
       seroval: 1.1.0
