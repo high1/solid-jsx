@@ -101,13 +101,13 @@
     "eslint-plugin-jsonc": "2.16.0",
     "eslint-plugin-prettier": "5.2.1",
     "eslint-plugin-yml": "1.14.0",
-    "husky": "9.1.5",
+    "husky": "9.1.6",
     "lint-staged": "15.2.10",
     "prettier": "3.3.3",
     "rimraf": "5.0.10",
     "solid-js": "1.8.22",
     "tsup": "8.2.4",
-    "typescript": "5.5.4"
+    "typescript": "5.6.2"
   },
   "lint-staged": {
     "*.{js,ts}": "eslint --fix",
