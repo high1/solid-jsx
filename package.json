@@ -105,8 +105,8 @@
     "lint-staged": "15.2.10",
     "prettier": "3.3.3",
     "rimraf": "5.0.10",
-    "solid-js": "1.9.2",
-    "tsup": "8.3.0",
+    "solid-js": "1.9.3",
+    "tsup": "8.3.5",
     "typescript": "5.6.3"
   },
   "lint-staged": {
