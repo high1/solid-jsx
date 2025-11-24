@@ -92,8 +92,8 @@
   },
   "homepage": "https://github.com/high1/solid-jsx#readme",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "8.46.4",
-    "@typescript-eslint/parser": "8.46.4",
+    "@typescript-eslint/eslint-plugin": "8.47.0",
+    "@typescript-eslint/parser": "8.47.0",
     "eslint": "8.57.1",
     "eslint-config-prettier": "9.1.2",
     "eslint-import-resolver-typescript": "3.10.1",
@@ -104,7 +104,7 @@
     "husky": "9.1.7",
     "lint-staged": "15.5.2",
     "prettier": "3.6.2",
-    "rimraf": "6.1.0",
+    "rimraf": "6.1.2",
     "solid-js": "1.9.10",
     "tsup": "8.5.1",
     "typescript": "5.9.3"
