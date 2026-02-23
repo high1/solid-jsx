@@ -96,7 +96,7 @@
     "@typescript-eslint/parser": "8.56.0",
     "eslint": "8.57.1",
     "eslint-config-prettier": "9.1.2",
-    "eslint-import-resolver-typescript": "3.10.1",
+    "eslint-import-resolver-typescript": "4.4.4",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-jsonc": "2.21.1",
     "eslint-plugin-prettier": "5.5.5",
