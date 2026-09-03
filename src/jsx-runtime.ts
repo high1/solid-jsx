@@ -1,13 +1,5 @@
-import {
-  createComponent,
-  createContext,
-  mergeProps,
-  useContext,
-  type JSX,
-  type JSXElement,
-  type ParentProps,
-} from 'solid-js';
-import { Dynamic } from 'solid-js/web';
+import { Dynamic, type JSX } from '@solidjs/web';
+import { createComponent, createContext, merge, useContext, type ParentProps } from 'solid-js';
 import { isFirstLetterCapital, isSVGElement, normalizeKeySvg } from 'utilities';
 
 export const MDXContext = createContext<Record<string, (properties_: never) => JSX.Element>>(
@@ -18,9 +10,9 @@ export const MDXProvider = (
   properties: ParentProps<{
     components: Record<string, (properties_: never) => JSX.Element>;
   }>,
-): JSXElement => {
+): JSX.Element => {
   const context = useContext(MDXContext);
-  return createComponent(MDXContext.Provider, {
+  return createComponent(MDXContext, {
     get value() {
       return {
         ...context,
@@ -46,10 +38,10 @@ const compatRegExp = new RegExp(`(?:${[...REPLACED_COMPAT_SET].join('|')})-.+`, 
 const expressionCache = Object.create(null) as Record<string, string>;
 const replaceDashWithUnderscore = <T>(expression: T): string | T =>
   typeof expression === 'string'
-    ? expressionCache[expression] ??
+    ? (expressionCache[expression] ??
       (expressionCache[expression] = expression.replaceAll(compatRegExp, (match: string) =>
         match.replaceAll('-', '_'),
-      ))
+      )))
     : expression;
 
 const getProperties = (
@@ -76,8 +68,9 @@ export const jsx = (
       ? Fragment(properties)
       : type(getProperties(properties))
     : createComponent(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         Dynamic,
-        mergeProps(isFirstLetterCapital(type) ? properties : getProperties(properties, type), {
+        merge(isFirstLetterCapital(type) ? properties : getProperties(properties, type), {
           component: replaceDashWithUnderscore(type),
         }),
       );

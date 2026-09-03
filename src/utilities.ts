@@ -1,4 +1,4 @@
-import { isServer } from 'solid-js/web';
+import { isServer } from '@solidjs/web';
 
 export const isFirstLetterCapital = (string: string): boolean => {
   const first = string.charAt(0);
@@ -27,5 +27,5 @@ const svgCache = Object.create(null) as Record<string, boolean>;
 
 export const isSVGElement = (element: string): boolean =>
   element in svgCache
-    ? svgCache[element] ?? false
+    ? (svgCache[element] ?? false)
     : (svgCache[element] = svgRe.test(element) && !element.includes('-'));
